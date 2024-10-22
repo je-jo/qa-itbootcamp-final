@@ -50,6 +50,11 @@ public class BaseTest {
         loginPage.clickLoginButton();
     }
 
+    public void logOut() {
+        loginPage.clickOnHamburgerMenuIfDisplayed();
+        sidebarPage.clickOnLogoutLink();
+    }
+
     public boolean isElemDisplayed(WebElement elem) {
         boolean isDisplayed = false;
         try {
