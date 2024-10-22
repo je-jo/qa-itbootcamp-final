@@ -30,17 +30,16 @@ public class ExcelReader {
         return cell.getStringCellValue();
     }
 
-//    public String getIntegerData(String sheetName, int rowNumber, int cellNumber) {
-//        sheet = wb.getSheet(sheetName);
-//        row = sheet.getRow(rowNumber);
-//        cell = row.getCell(cellNumber);
-//        return (int) cell.getNumericCellValue();
-//    }
+    public int getIntegerData(String sheetName, int rowNumber, int cellNumber) {
+        sheet = wb.getSheet(sheetName);
+        row = sheet.getRow(rowNumber);
+        cell = row.getCell(cellNumber);
+        return (int) cell.getNumericCellValue();
+    }
 
     public int getLastRow(String sheet) {
         this.sheet = wb.getSheet(sheet);
         return this.sheet.getLastRowNum();
     }
-
 
 }

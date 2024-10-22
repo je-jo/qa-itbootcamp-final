@@ -1,9 +1,8 @@
 package Base;
 
-import Pages.InventoryPage;
-import Pages.LoginPage;
-import Pages.SidebarPage;
+import Pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +22,11 @@ public class BaseTest {
     public LoginPage loginPage;
     public InventoryPage inventoryPage;
     public SidebarPage sidebarPage;
+    public ItemPage itemPage;
+    public CartPage cartPage;
+    public CheckoutInfoPage checkoutInfoPage;
+    public CheckoutOverviewPage checkoutOverviewPage;
+
 
 
     @BeforeClass
@@ -37,6 +41,10 @@ public class BaseTest {
         loginPage = new LoginPage();
         inventoryPage = new InventoryPage();
         sidebarPage = new SidebarPage();
+        itemPage = new ItemPage();
+        cartPage = new CartPage();
+        checkoutInfoPage = new CheckoutInfoPage();
+        checkoutOverviewPage = new CheckoutOverviewPage();
     }
 
     // helpers
