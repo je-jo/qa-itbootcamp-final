@@ -15,4 +15,18 @@ public class CheckoutOverviewPage extends BaseTest {
 
     @FindBy(className = "inventory_item_name")
     public List<WebElement> cartItemNames;
+
+    @FindBy(id = "finish")
+    public WebElement btnFinish;
+
+    @FindBy(id = "cancel")
+    public WebElement btnCancel;
+
+    public void clickOnFinishButton() {
+        btnFinish.click();
+    }
+
+    public void clickOnCancelButton() {
+        btnCancel.click();
+    }
 }

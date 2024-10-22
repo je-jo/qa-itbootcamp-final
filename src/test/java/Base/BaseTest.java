@@ -26,6 +26,7 @@ public class BaseTest {
     public CartPage cartPage;
     public CheckoutInfoPage checkoutInfoPage;
     public CheckoutOverviewPage checkoutOverviewPage;
+    public CheckoutCompletePage checkoutCompletePage;
 
 
 
@@ -45,6 +46,7 @@ public class BaseTest {
         cartPage = new CartPage();
         checkoutInfoPage = new CheckoutInfoPage();
         checkoutOverviewPage = new CheckoutOverviewPage();
+        checkoutCompletePage = new CheckoutCompletePage();
     }
 
     // helpers
