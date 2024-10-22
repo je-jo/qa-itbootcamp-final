@@ -1,13 +1,11 @@
 package Tests;
 
 import Base.BaseTest;
-import Base.LoginMethod;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class LogoutTests extends LoginMethod {
+public class LogoutTests extends BaseTest {
 
     @BeforeMethod
     public void pageSetUp() {

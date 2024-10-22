@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 
 import java.io.IOException;
@@ -17,8 +18,8 @@ public class BaseTest {
 
     public static WebDriver driver;
     public static JavascriptExecutor js;
+    public static WebDriverWait wait;
     public ExcelReader excelReader;
-    public LoginMethod loginMethod;
     public LoginPage loginPage;
     public InventoryPage inventoryPage;
     public SidebarPage sidebarPage;
@@ -30,9 +31,9 @@ public class BaseTest {
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         excelReader = new ExcelReader("Data.xlsx");
-        loginMethod = new LoginMethod();
         loginPage = new LoginPage();
         inventoryPage = new InventoryPage();
         sidebarPage = new SidebarPage();
@@ -43,6 +44,12 @@ public class BaseTest {
         js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
+    public void logIn(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        loginPage.clickLoginButton();
+    }
+
     public boolean isElemDisplayed(WebElement elem) {
         boolean isDisplayed = false;
         try {
@@ -50,6 +57,11 @@ public class BaseTest {
         } catch (Exception e) {
         }
         return isDisplayed;
+    }
+
+    public void clearCookies() {
+        driver.manage().deleteAllCookies();
+        driver.navigate().refresh();
     }
 
 

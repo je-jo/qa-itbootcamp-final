@@ -1,26 +1,28 @@
 package Tests;
 
 import Base.BaseTest;
-import Base.LoginMethod;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class LoginTests extends LoginMethod {
+public class LoginTests extends BaseTest {
 
     @BeforeMethod
     public void pageSetUp() {
         driver.navigate().to("https://www.saucedemo.com/");
     }
 
-    @Test
+    @Test(priority = 10)
     public void userCanLogInWithValidCredentials() {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String validUsername = excelReader.getStringData("Credentials", i, 0);
             String validPassword = excelReader.getStringData("Credentials", i, 1);
-            // (locked_out_user obrisan jer pada test, videti posle...)
             logIn(validUsername, validPassword);
             loginPage.clickOnHamburgerMenuIfDisplayed();
+            wait.until(ExpectedConditions.visibilityOf(sidebarPage.linkLogout));
+            System.out.println("Valid username " + validUsername + " able to login.");
+            // username sa kojim pada test se nece odstampati
+            // kako nastaviti kroz petlju ako pada asertacija??
             // asertacije
             Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
             Assert.assertEquals(inventoryPage.getHeaderText(), "Swag Labs");
@@ -30,7 +32,7 @@ public class LoginTests extends LoginMethod {
         }
     }
 
-    @Test
+    @Test(priority = 20)
     public void UserCannotLogInWithInvalidUsername() {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String invalidUsername = excelReader.getStringData("Credentials", i, 2);
@@ -44,7 +46,7 @@ public class LoginTests extends LoginMethod {
         }
     }
 
-    @Test
+    @Test(priority = 30)
     public void UserCannotLogInWithInvalidPassword() {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String validUsername = excelReader.getStringData("Credentials", i, 0);
@@ -58,7 +60,7 @@ public class LoginTests extends LoginMethod {
         }
     }
 
-    @Test
+    @Test(priority = 40)
     public void UserCannotLogInWithInvalidUsernameAndPassword() {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String invalidUsername = excelReader.getStringData("Credentials", i, 2);
@@ -72,7 +74,7 @@ public class LoginTests extends LoginMethod {
         }
     }
 
-    @Test
+    @Test(priority = 50)
     public void UserCannotLogInWithoutEnteringUsername() {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String blankUsername = "";
@@ -86,7 +88,7 @@ public class LoginTests extends LoginMethod {
         }
     }
 
-    @Test
+    @Test(priority = 60)
     public void UserCannotLogInWithoutEnteringPassword() {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String validUsername = excelReader.getStringData("Credentials", i, 0);
@@ -100,7 +102,7 @@ public class LoginTests extends LoginMethod {
         }
     }
 
-    @Test
+    @Test(priority = 70)
     public void UsernameFieldIsCaseSensitive() {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String validUsername = excelReader.getStringData("Credentials", i, 0);
@@ -115,7 +117,7 @@ public class LoginTests extends LoginMethod {
         }
     }
 
-    @Test
+    @Test(priority = 80)
     public void PasswordFieldIsCaseSensitive() {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String validUsername = excelReader.getStringData("Credentials", i, 0);
@@ -130,21 +132,15 @@ public class LoginTests extends LoginMethod {
         }
     }
 
+    @AfterMethod
+    public void logOutAfterEachTest() {
+        clearCookies();
+    }
+
 
     @AfterClass
     public void tearDown() {
         driver.quit();
     }
-
-    // helpers
-
-
-    public void clearCookies() {
-        driver.manage().deleteAllCookies();
-        driver.navigate().refresh();
-    }
-
-
-
 
 }
