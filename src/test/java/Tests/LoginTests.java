@@ -106,9 +106,9 @@ public class LoginTests extends BaseTest {
     public void UsernameFieldIsCaseSensitive() {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String validUsername = excelReader.getStringData("Credentials", i, 0);
-            String allcapsUsername = validUsername.toUpperCase();
+            String firstLetterUppercased = validUsername.substring(0,1).toUpperCase() + validUsername.substring(1);
             String validPassword = excelReader.getStringData("Credentials", i, 1);
-            logIn(allcapsUsername, validPassword);
+            logIn(firstLetterUppercased, validPassword);
             // asertacije
             Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/");
             Assert.assertTrue(isElemDisplayed(loginPage.btnLogin));
@@ -122,8 +122,8 @@ public class LoginTests extends BaseTest {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String validUsername = excelReader.getStringData("Credentials", i, 0);
             String validPassword = excelReader.getStringData("Credentials", i, 1);
-            String allcapsPassword = validPassword.toUpperCase();
-            logIn(validUsername, allcapsPassword);
+            String lastLetterUppercased = validPassword.substring(0, validPassword.length() - 1) + validPassword.substring(validPassword.length() - 1).toUpperCase();
+            logIn(validUsername, lastLetterUppercased);
             // asertacije
             Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/");
             Assert.assertTrue(isElemDisplayed(loginPage.btnLogin));
