@@ -34,6 +34,9 @@ public class InventoryPage extends BaseTest {
     @FindBy(css = "button[id^='remove']")
     public List<WebElement> btnsRemoveFromCart;
 
+    @FindBy(className = "btn_inventory")
+    public List<WebElement> btnsAll;
+
     @FindBy(className = "shopping_cart_badge")
     public WebElement badgeCart;
 

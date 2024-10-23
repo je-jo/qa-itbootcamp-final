@@ -1,6 +1,7 @@
 package Tests;
 
 import Base.BaseTest;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -15,33 +16,36 @@ public class CartTests extends BaseTest {
         logIn(excelReader.getStringData("Credentials", 1, 0), excelReader.getStringData("Credentials", 1, 1));
     }
 
-    @Test
+    @Test(priority = 10)
     public void userCanAddItemToCartFromInventoryPage() {
-        int randomIndex = (int) ((Math.random() * inventoryPage.itemNames.size()));
-        String itemName = inventoryPage.itemNames.get(randomIndex).getText();
+        int randomIndex = getRandomIndex(inventoryPage.itemNames.size());
+        String addedItemName = inventoryPage.itemNames.get(randomIndex).getText();
         inventoryPage.btnsAddToCart.get(randomIndex).click();
+        String newButtonText = inventoryPage.btnsAll.get(randomIndex).getText();
         inventoryPage.clickOnCartLink();
         // asertacije
+        Assert.assertEquals(newButtonText, "Remove");
         Assert.assertTrue(isElemDisplayed(inventoryPage.badgeCart));
         Assert.assertEquals(inventoryPage.badgeCart.getText(), "1");
-        Assert.assertEquals(cartPage.cartItemNames.get(0).getText(), itemName);
+        Assert.assertEquals(cartPage.cartItemNames.get(0).getText(), addedItemName);
     }
 
-    @Test
+    @Test(priority = 20)
     public void userCanAddItemToCartFromItemPage() {
-        int randomIndex = (int) ((Math.random() * inventoryPage.itemNames.size()));
-        String itemName = inventoryPage.itemNames.get(randomIndex).getText();
+        int randomIndex = getRandomIndex(inventoryPage.itemNames.size());
+        String addedItemName = inventoryPage.itemNames.get(randomIndex).getText();
         inventoryPage.clickOnItemName(randomIndex);
-        wait.until(ExpectedConditions.visibilityOf(itemPage.btnAddToCart));
         itemPage.clickOnAddToCartButton();
+        String newButtonText = itemPage.btnGeneral.getText();
         inventoryPage.clickOnCartLink();
         // asertacije
+        Assert.assertEquals(newButtonText, "Remove");
         Assert.assertTrue(isElemDisplayed(inventoryPage.badgeCart));
         Assert.assertEquals(inventoryPage.badgeCart.getText(), "1");
-        Assert.assertEquals(cartPage.cartItemNames.get(0).getText(), itemName);
+        Assert.assertEquals(cartPage.cartItemNames.get(0).getText(), addedItemName);
     }
 
-    @Test
+    @Test(priority = 30)
     public void userCanAddMultipleItemsToCartFromInventoryPage() {
         inventoryPage.btnsAddToCart.get(0).click();
         inventoryPage.btnsAddToCart.get(1).click();
@@ -55,9 +59,10 @@ public class CartTests extends BaseTest {
         }
     }
 
-    @Test
+    @Test(priority = 40)
     public void userCanRemoveItemFromCart() {
-        inventoryPage.btnsAddToCart.get(0).click();
+        int randomIndex = getRandomIndex(inventoryPage.itemNames.size());
+        inventoryPage.btnsAddToCart.get(randomIndex).click();
         inventoryPage.clickOnCartLink();
         cartPage.removeItemFromCart(0);
         // asertacije
@@ -65,17 +70,18 @@ public class CartTests extends BaseTest {
         Assert.assertEquals(cartPage.cartItemNames.size(), 0);
     }
 
-    @Test
+    @Test(priority = 50)
     public void userCanRemoveItemFromCartFromInventoryPage() {
-        inventoryPage.btnsAddToCart.get(0).click();
-        inventoryPage.btnsRemoveFromCart.get(0).click();
+        int randomIndex = getRandomIndex(inventoryPage.itemNames.size());
+        inventoryPage.btnsAddToCart.get(randomIndex).click();
+        inventoryPage.btnsAll.get(randomIndex).click();
         inventoryPage.clickOnCartLink();
         // asertacije
         Assert.assertFalse(isElemDisplayed(inventoryPage.badgeCart));
         Assert.assertEquals(cartPage.cartItemNames.size(), 0);
     }
 
-    @Test
+    @Test(priority = 60)
     public void CartStateIsPreservedAfterLogOut() {
         inventoryPage.btnsAddToCart.get(0).click();
         inventoryPage.btnsAddToCart.get(1).click();
@@ -87,7 +93,22 @@ public class CartTests extends BaseTest {
         Assert.assertTrue(isElemDisplayed(inventoryPage.badgeCart));
         Assert.assertEquals(inventoryPage.badgeCart.getText(), "2");
         Assert.assertEquals(cartPage.cartItemNames.get(0), inventoryPage.itemNames.get(0));
+        Assert.assertEquals(cartPage.cartItemNames.get(1), inventoryPage.itemNames.get(1));
+    }
 
+    @Test(priority = 70)
+    public void userCanAddAllItemsToCart() {
+        int numOfItemsToAdd = inventoryPage.btnsAddToCart.size();
+        for (int i = numOfItemsToAdd - 1; i >= 0; i--) {
+            inventoryPage.clickOnItemAddToCartButton(i);
+        }
+        inventoryPage.clickOnCartLink();
+        // asertacije
+        Assert.assertTrue(isElemDisplayed(inventoryPage.badgeCart));
+        Assert.assertEquals(inventoryPage.badgeCart.getText(), String.valueOf(numOfItemsToAdd));
+        for (int i = 0; i < cartPage.cartItemNames.size(); i++) {
+            Assert.assertEquals(cartPage.cartItemNames.get(i).getText(), inventoryPage.itemNames.get(i).getText());
+        }
     }
 
 
@@ -97,4 +118,18 @@ public class CartTests extends BaseTest {
         cartPage.removeAllFromCart();
         clearCookies();
     }
+
+    // helpers
+
+    public int getRandomIndex(int max) {
+        return (int) ((Math.random() * max));
+    }
+
+/*    public int[] getArrayOfRandomIndexes(int arrayLength, int max) {
+        int[] randomArray = new int[arrayLength];
+        for (int i = 0; i < arrayLength; i++) {
+            randomArray[i] = getRandomIndex(max);
+            System.out.println(randomArray[i]);
+        }
+    }*/
 }

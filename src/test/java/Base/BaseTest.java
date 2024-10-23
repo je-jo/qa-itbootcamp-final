@@ -41,8 +41,8 @@ public class BaseTest {
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         excelReader = new ExcelReader("Data.xlsx");
 
         loginPage = new LoginPage();

@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class ItemPage extends BaseTest {
 
     public ItemPage() {
@@ -28,6 +30,9 @@ public class ItemPage extends BaseTest {
 
     @FindBy(id = "add-to-cart")
     public WebElement btnAddToCart;
+
+    @FindBy(className = "btn_inventory")
+    public WebElement btnGeneral;
 
     public void clickOnBackToInventory() {
         btnBackToInventory.click();
