@@ -17,5 +17,11 @@ public class CheckoutCompletePage extends BaseTest {
     @FindBy(id = "back-to-products")
     public WebElement btnBackToProducts;
 
+    // metode
+
+    public void clickOnBackToProductsButton() {
+        btnBackToProducts.click();
+    }
+
 
 }

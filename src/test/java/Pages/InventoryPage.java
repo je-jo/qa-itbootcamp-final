@@ -16,6 +16,9 @@ public class InventoryPage extends BaseTest {
     @FindBy(className = "app_logo")
     public WebElement header;
 
+    @FindBy(id = "react-burger-menu-btn")
+    public WebElement btnBurgerMenu;
+
     @FindBy(className = "inventory_item_name")
     public List<WebElement> itemNames;
 
@@ -45,6 +48,14 @@ public class InventoryPage extends BaseTest {
 
 
     // metode
+
+    public void clickOnHamburgerMenuIfDisplayed() {
+        try {
+            btnBurgerMenu.click();
+        } catch (Exception e) {
+            System.out.println("Burger menu is not displayed.");
+        }
+    }
 
     public void clickOnItemName(int index) {
         itemNames.get(index).click();

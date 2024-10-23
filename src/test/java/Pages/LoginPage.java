@@ -22,9 +22,6 @@ public class LoginPage extends BaseTest {
     @FindBy(id = "login-button")
     public WebElement btnLogin;
 
-    @FindBy(id = "react-burger-menu-btn")
-    public WebElement btnBurgerMenu;
-
     @FindBy(css = "h3[data-test='error']")
     public WebElement msgError;
 
@@ -42,14 +39,6 @@ public class LoginPage extends BaseTest {
 
     public void clickLoginButton() {
         btnLogin.click();
-    }
-
-    public void clickOnHamburgerMenuIfDisplayed() {
-        try {
-            btnBurgerMenu.click();
-        } catch (Exception e) {
-            System.out.println("Burger menu is not displayed.");
-        }
     }
 
 }

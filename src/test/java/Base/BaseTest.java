@@ -83,7 +83,7 @@ public class BaseTest {
     }
 
     public void logOut() {
-        loginPage.clickOnHamburgerMenuIfDisplayed();
+        inventoryPage.clickOnHamburgerMenuIfDisplayed();
         sidebarPage.clickOnLogoutLink();
     }
 

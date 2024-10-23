@@ -84,7 +84,7 @@ public class InventoryPageTests extends BaseTest {
 
     @Test(priority = 30)
     public void userCanSeeAboutPage() {
-        loginPage.clickOnHamburgerMenuIfDisplayed();
+        inventoryPage.clickOnHamburgerMenuIfDisplayed();
         sidebarPage.clickOnAboutLink();
         // asertacije
         Assert.assertEquals(driver.getCurrentUrl(), "https://saucelabs.com/");
