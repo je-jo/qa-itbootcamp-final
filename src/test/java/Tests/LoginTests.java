@@ -25,7 +25,7 @@ public class LoginTests extends BaseTest {
             // kako nastaviti kroz petlju ako pada asertacija??
             // asertacije
             Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html");
-            Assert.assertEquals(inventoryPage.getHeaderText(), "Swag Labs");
+            Assert.assertEquals(inventoryPage.header.getText(), "Swag Labs");
             Assert.assertTrue(isElemDisplayed(sidebarPage.linkLogout));
             // log out
             clearCookies();
@@ -106,7 +106,7 @@ public class LoginTests extends BaseTest {
     public void UsernameFieldIsCaseSensitive() {
         for (int i = 1; i < excelReader.getLastRow("Credentials") + 1; i++) {
             String validUsername = excelReader.getStringData("Credentials", i, 0);
-            String firstLetterUppercased = validUsername.substring(0,1).toUpperCase() + validUsername.substring(1);
+            String firstLetterUppercased = validUsername.substring(0, 1).toUpperCase() + validUsername.substring(1);
             String validPassword = excelReader.getStringData("Credentials", i, 1);
             logIn(firstLetterUppercased, validPassword);
             // asertacije
@@ -132,10 +132,10 @@ public class LoginTests extends BaseTest {
         }
     }
 
-    @AfterMethod
+/*    @AfterMethod
     public void logOutAfterEachTest() {
         clearCookies();
-    }
+    }*/
 
 
     @AfterClass

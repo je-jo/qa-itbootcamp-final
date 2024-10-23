@@ -44,14 +44,11 @@ public class LoginPage extends BaseTest {
         btnLogin.click();
     }
 
-    public void clickOnHamburgerMenu() {
-        btnBurgerMenu.click();
-    }
-
     public void clickOnHamburgerMenuIfDisplayed() {
         try {
             btnBurgerMenu.click();
         } catch (Exception e) {
+            System.out.println("Burger menu is not displayed.");
         }
     }
 

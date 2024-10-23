@@ -17,24 +17,28 @@ public class CartTests extends BaseTest {
 
     @Test
     public void userCanAddItemToCartFromInventoryPage() {
-        inventoryPage.btnsAddToCart.get(0).click();
+        int randomIndex = (int) ((Math.random() * inventoryPage.itemNames.size()));
+        String itemName = inventoryPage.itemNames.get(randomIndex).getText();
+        inventoryPage.btnsAddToCart.get(randomIndex).click();
         inventoryPage.clickOnCartLink();
         // asertacije
         Assert.assertTrue(isElemDisplayed(inventoryPage.badgeCart));
         Assert.assertEquals(inventoryPage.badgeCart.getText(), "1");
-        Assert.assertEquals(cartPage.cartItemNames.get(0), inventoryPage.itemNames.get(0));
+        Assert.assertEquals(cartPage.cartItemNames.get(0).getText(), itemName);
     }
 
     @Test
     public void userCanAddItemToCartFromItemPage() {
-        inventoryPage.clickOnItemName(0);
+        int randomIndex = (int) ((Math.random() * inventoryPage.itemNames.size()));
+        String itemName = inventoryPage.itemNames.get(randomIndex).getText();
+        inventoryPage.clickOnItemName(randomIndex);
         wait.until(ExpectedConditions.visibilityOf(itemPage.btnAddToCart));
         itemPage.clickOnAddToCartButton();
         inventoryPage.clickOnCartLink();
         // asertacije
         Assert.assertTrue(isElemDisplayed(inventoryPage.badgeCart));
         Assert.assertEquals(inventoryPage.badgeCart.getText(), "1");
-        Assert.assertEquals(cartPage.cartItemNames.get(0), inventoryPage.itemNames.get(0));
+        Assert.assertEquals(cartPage.cartItemNames.get(0).getText(), itemName);
     }
 
     @Test
@@ -89,7 +93,7 @@ public class CartTests extends BaseTest {
 
     @AfterMethod
     public void logOutAndClearCartAfterEachTest() throws InterruptedException {
-        Thread.sleep(3000);
+        Thread.sleep(1500);
         cartPage.removeAllFromCart();
         clearCookies();
     }

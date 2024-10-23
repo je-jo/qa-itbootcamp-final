@@ -11,11 +11,17 @@ public class SidebarPage extends BaseTest {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(id = "logout_sidebar_link")
-    public WebElement linkLogout;
+    @FindBy(id = "inventory_sidebar_link")
+    public WebElement linkInventory;
 
     @FindBy(id = "about_sidebar_link")
     public WebElement linkAbout;
+
+    @FindBy(id = "logout_sidebar_link")
+    public WebElement linkLogout;
+
+    @FindBy(id = "reset_sidebar_link")
+    public WebElement linkResetAppState;
 
     // metode
 
@@ -27,6 +33,12 @@ public class SidebarPage extends BaseTest {
         linkAbout.click();
     }
 
+    public void clickOnInventoryLink() {
+        linkInventory.click();
+    }
 
+    public void clickOnResetAppState() {
+        linkResetAppState.click();
+    }
 
 }

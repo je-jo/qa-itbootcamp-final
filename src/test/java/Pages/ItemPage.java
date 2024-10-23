@@ -15,17 +15,22 @@ public class ItemPage extends BaseTest {
     public WebElement btnBackToInventory;
 
     @FindBy(css = ".inventory_details_name.large_size")
-    public WebElement headerItemDetail;
+    public WebElement itemNameDetail;
+
+    @FindBy(css = ".inventory_details_desc.large_size")
+    public WebElement itemDescriptionDetail;
+
+    @FindBy(className = "inventory_details_price")
+    public WebElement itemPriceDetail;
+
+    @FindBy(css = "img[class='inventory_details_img']")
+    public WebElement itemImgDetail;
 
     @FindBy(id = "add-to-cart")
     public WebElement btnAddToCart;
 
     public void clickOnBackToInventory() {
         btnBackToInventory.click();
-    }
-
-    public String getHeaderText() {
-        return headerItemDetail.getText();
     }
 
     public void clickOnAddToCartButton() {

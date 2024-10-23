@@ -41,15 +41,22 @@ public class InventoryPage extends BaseTest {
     public WebElement linkCart;
 
 
-
     // metode
-
-    public String getHeaderText() {
-        return header.getText();
-    }
 
     public void clickOnItemName(int index) {
         itemNames.get(index).click();
+    }
+
+    public void clickOnItemImage(int index) {
+        itemImages.get(index).click();
+    }
+
+    public void clickOnItemAddToCartButton(int index) {
+        btnsAddToCart.get(index).click();
+    }
+
+    public void clickOnItemRemoveFromCartButton(int index) {
+        btnsRemoveFromCart.get(index).click();
     }
 
     public void clickOnCartLink() {
