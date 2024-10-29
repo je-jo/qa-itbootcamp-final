@@ -49,7 +49,7 @@ public class InventoryPage extends BaseTest {
 
     // metode
 
-    public void clickOnHamburgerMenuIfDisplayed() {
+    public void clickOnHamburgerMenu() {
         try {
             btnBurgerMenu.click();
         } catch (Exception e) {
